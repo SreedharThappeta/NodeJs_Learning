@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "first time trying express with nodejs",
   "main": "index.js",
-  "scripts": {   
-    "test":"node src/app.js",  
+  "scripts": {
+    "test": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
   "keywords": [
@@ -12,5 +12,10 @@
     "nodejs"
   ],
   "author": "Sreedhar",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.12.1"
+  }
 }

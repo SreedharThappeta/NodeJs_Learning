@@ -4,64 +4,66 @@ const app = express();
 
 const {adminAuth} = require("./middlewares/Authorized");
 
+require("./config/Database.js");
 
-app.use("/admin", adminAuth);
-
-app.get("/admin", (req,res) => {
-    res.send("Admin Authorized!");
-})
-
-app.use("/user", (req,res,next) => {
-    if(req.url == '/'){
-        next();
-    }
-    else {
-        res.status(500).send("error"+req.url);
-    }
-
-}, (req, res) => {
-    res.send("user Authorized!");
-}
-)
-
-
-app.use("/home", (req,res,next) => {
-    console.log("Checking Auth for all /home");
-    next();
-})
-
-app.get("/home/:name", (req, res, next) => {
-
-    if(req.params.name == "sreedhar"){
-        res.send("Hello Sreedhar!");
-    }
-    else{
-        next();
-    }
-}, (req, res, next) => {
-    res.status(401).send("your not sreedhar!!! (Unauthorized Request!)");
-
-}
-)
-
-
-
-// ERROR HANDLING
-app.get("/test", (req,res) => {
-
-    throw new error("custom made error");
-    res.send("hi");
-
-})
- 
-app.use("/test", (err, req, res, next) => {
-    res.status(500).send("Error! "+ err.name);
-})
 
 app.listen(420, () => {
     console.log("This is called when the sever starts successfully!");
 });
 
+
+// app.use("/admin", adminAuth);
+
+// app.get("/admin", (req,res) => {
+//     res.send("Admin Authorized!");
+// })
+
+// app.use("/user", (req,res,next) => {
+//     if(req.url == '/'){
+//         next();
+//     }
+//     else {
+//         res.status(500).send("error"+req.url);
+//     }
+
+// }, (req, res) => {
+//     res.send("user Authorized!");
+// }
+// )
+
+
+// app.use("/home", (req,res,next) => {
+//     console.log("Checking Auth for all /home");
+//     next();
+// })
+
+// app.get("/home/:name", (req, res, next) => {
+
+//     if(req.params.name == "sreedhar"){
+//         res.send("Hello Sreedhar!");
+//     }
+//     else{
+//         next();
+//     }
+// }, (req, res, next) => {
+//     res.status(401).send("your not sreedhar!!! (Unauthorized Request!)");
+
+// }
+// )
+
+
+
+// // ERROR HANDLING
+// app.get("/test", (req,res) => {
+
+//     throw new error("custom made error");
+//     res.send("hi");
+
+// })
+ 
+// app.use("/test", (err, req, res, next) => {
+//     res.status(500).send("Error! "+ err.name);
+// })
 
 
 
