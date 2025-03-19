@@ -1,0 +1,16 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "first time trying express with nodejs",
+  "main": "index.js",
+  "scripts": {   
+    "test":"node src/app.js",  
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "express",
+    "nodejs"
+  ],
+  "author": "Sreedhar",
+  "license": "ISC"
+}
