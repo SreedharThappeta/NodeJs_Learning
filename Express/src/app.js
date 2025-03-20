@@ -4,12 +4,42 @@ const app = express();
 
 const {adminAuth} = require("./middlewares/Authorized");
 
-require("./config/Database.js");
+const { connectDB } = require("./config/Database.js");
+
+const { User } = require("./models/model");
 
 
-app.listen(420, () => {
-    console.log("This is called when the sever starts successfully!");
-});
+app.post("/signup", async (q,s) => {
+
+    const userObj = {
+        firstName: "Hasmi",
+        emailId: "has@gmail.com",
+        password: "sree",
+        age: 18
+    }
+
+    const user = new User(userObj);  // creating an Instance
+
+    await user.save()
+    .then(()=>{ s.send("User Added Successfully!") })
+    .catch(err=>(s.send(err)));
+})
+
+
+connectDB().then(
+    () => {
+        console.log("Connection Successful");
+
+        app.listen(420, () => {
+            console.log("This is called when the sever starts successfully!");
+        });
+    }
+).catch(err=>{
+    console.log("Failed"+err);
+})
+
+
+
 
 
 // app.use("/admin", adminAuth);
