@@ -3,6 +3,8 @@ const express = require("express");
 
 const {User} = require("../models/model");
 
+const bcrypt = require("bcrypt");
+
 const signup = express.Router();
 
 
@@ -10,7 +12,12 @@ signup.use("/signup", async (req, res) => {
 
 
     const {email, password} = req.body;
-    const user = new User({emailId:email, password:password});
+
+    const hash = await bcrypt.hash(password, 10); // 10 is salt rounds
+
+    console.log(hash);
+
+    const user = new User({emailId:email, password:hash});
 
     await user.save()
             .then(() => {
@@ -34,7 +41,10 @@ signup.use("/login",  async (req, res) => {
             console.log("user not found in db");
             throw new Error("Invalid Credentials!");
         }
-        if(password != user.password)
+
+        const isPasswordMatched = await bcrypt.compare(password,user.password);
+
+        if(!isPasswordMatched)
         {
             console.log("password didn't match!");
             throw new Error("Invalid Credentials!");
