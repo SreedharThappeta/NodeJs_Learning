@@ -14,19 +14,12 @@ const { userAuth } = require("../utils/Authentication");
 
 profileRouter.use(cookieParser());
 
-profileRouter.use("/profile", async (req,res) => {
+profileRouter.use("/profile", userAuth, async (req,res) => {
 
     try{
-        const token = req.cookies.token;
-        if(!token){
-            throw new Error("Login First");
-        }
-
-        console.log(token);
-        const user_data = await jwt.verify(token,"SecretPr1vat3k#Y");
-        console.log(user_data.id);
-
-       res.send(user_data);
+        const user = req.user;
+        console.log(user._id);
+       res.send(user);
     }
     catch(err){
         res.status(400).send("Something Went Wrong: "+err.message);
