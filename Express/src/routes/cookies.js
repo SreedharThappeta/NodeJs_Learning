@@ -23,9 +23,6 @@ cookiesRouter.use("/cookies/get", (req,res) => {
     res.send(req.cookies);
 });
 
-
-
-
 cookiesRouter.use("/cookies", (req, res) => {
 
     const data = req.body;

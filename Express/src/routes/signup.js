@@ -5,6 +5,8 @@ const {User} = require("../models/model");
 
 const bcrypt = require("bcrypt");
 
+const jwt = require("jsonwebtoken");
+
 const signup = express.Router();
 
 
@@ -49,11 +51,14 @@ signup.use("/login",  async (req, res) => {
             console.log("password didn't match!");
             throw new Error("Invalid Credentials!");
         }
+
+        const token = await jwt.sign({id:user._id},"SecretPr1vat3k#Y");
+
+        res.cookie("token", token);
         res.send("login successful!");
     }catch(err){
         res.status(404).send("Error: "+err.message);
     }
-
 }); 
 
 
