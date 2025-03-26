@@ -12,12 +12,14 @@ const cors = require("cors");
 
 //routes
 const {signup} = require("./routes/signup.js");
+const {cookiesRouter} = require("./routes/cookies.js");
 
 app.use(express.json());
 
 app.use(cors())
 
 app.use("/", signup);
+app.use("/", cookiesRouter);
 
 
 connectDB().then(
