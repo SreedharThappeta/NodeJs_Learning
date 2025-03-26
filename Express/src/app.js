@@ -8,22 +8,16 @@ const { connectDB } = require("./config/Database.js");
 
 const { User } = require("./models/model");
 
+const cors = require("cors");
 
-app.post("/signup", async (q,s) => {
+//routes
+const {signup} = require("./routes/signup.js");
 
-    const userObj = {
-        firstName: "Hasmi",
-        emailId: "has@gmail.com",
-        password: "sree",
-        age: 18
-    }
+app.use(express.json());
 
-    const user = new User(userObj);  // creating an Instance
+app.use(cors())
 
-    await user.save()
-    .then(()=>{ s.send("User Added Successfully!") })
-    .catch(err=>(s.send(err)));
-})
+app.use("/", signup);
 
 
 connectDB().then(
@@ -38,8 +32,96 @@ connectDB().then(
     console.log("Failed"+err);
 })
 
+// app.get("/admin", async (req, res) => {
+//     const data = await User.find({});
+//     try{
+//         res.send(data);
+//         console.log(data);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// })
 
 
+// app.get("/findById/:Id", async (req,res) => {
+//     const data = await User.findById(req.params.Id);
+//     try{
+//         res.send(data);
+//         console.log(data);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// })
+
+
+// app.get("/find", async (req, res) => {
+//     // res.write(req.query);
+//     console.log(req.query);
+//     const data = await User.find(req.query);
+//     try{
+//         res.send(data);
+//         console.log(data);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// })
+
+// app.get("/findOne", async (req,res) => {
+//     console.log(req.query);
+//     const data = await User.findOne(req.query);
+//     try{
+//         res.send(data);
+//         console.log(data);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// })
+
+// app.get("/findByIdAndUpdate/:id", async (req,res) => {
+//     console.log(req.params);
+//     console.log(req.query);
+
+//     const data = await User.findByIdAndUpdate(req.params.id, req.query);
+//     try{
+//         res.send(data);
+//         console.log(data);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// })
+
+// app.get("/findByIdAndDelete/:id", async (req,res) => {
+//     console.log(req.params);
+//     console.log(req.query);
+    
+//     try {
+//         const data = await User.findByIdAndDelete(req.params.id).catch(error=>{
+//             console.log(error);
+//         })
+//         res.send(data);
+//     } catch (err) {
+//         console.log("something went wrongL "+err);
+//         res.status(500).send(err);
+//     }
+// })
+
+
+// app.post("/signup", async (req,res) => {
+
+//     console.log(req.body);
+
+//     const userObj = req.body;
+
+//     const user = new User(userObj);  // creating an Instance
+
+//     await user.save()
+//     try{
+//         res.send(data);
+//         console.log(data);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// })
 
 
 // app.use("/admin", adminAuth);
